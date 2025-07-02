@@ -9,7 +9,7 @@ wget -O "$filename" "$url"
 #Unzip the file if needed
 if [[ "$filename" == *.zip ]]; then
 	unzip -o "$filename"
-	csv_file=$(unzip -l "$filename" | grep -o '[^ ]*\.csv' | head -1)
+	csv_file=$(find . -name "*.csv" | head -1)
 	if [ -z "$csv_file" ]; then
 	    echo "No CSV file found in the zip archive."
 	    exit 1
