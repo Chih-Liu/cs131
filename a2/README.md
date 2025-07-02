@@ -13,6 +13,6 @@ This shell script automates the process of:
 1. Clone the repository and enter the `a2` directory:
 
 ```bash
-git clone <your GitHub repo URL>
+git clone <https://github.com/Chih-Liu/cs131.git>
 cd cs131/a2
 
