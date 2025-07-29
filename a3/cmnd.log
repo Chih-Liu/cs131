@@ -1,0 +1,102 @@
+Script started on 2025-07-12 00:46:06+00:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="124" LINES="62"]
+]0;chih_liu@instance-20250602-164944: ~/cs131/a3[01;32mchih_liu@instance-20250602-164944[00m:[01;34m~/cs131/a3[00m$ ls
+a3.txt  cmnd.log  grader.awk  grades.csv
+]0;chih_liu@instance-20250602-164944: ~/cs131/a3[01;32mchih_liu@instance-20250602-164944[00m:[01;34m~/cs131/a3[00m$ cat grafd[K[Kdes.csv
+StudentID,Name,CS146,CS131,CS100W
+101,Alice,85,90,78
+102,Bob,76,82,88
+103,Charlie,90,85,95
+104,David,65,70,60
+105,Eve,88,92,85
+]0;chih_liu@instance-20250602-164944: ~/cs131/a3[01;32mchih_liu@instance-20250602-164944[00m:[01;34m~/cs131/a3[00m$ cat grader.awk
+# set input field separator as comma for CSV files 
+BEGIN{
+	FS = ","
+}
+
+# skip the first row
+NR == 1{ next }
+
+# process each student record
+{
+	name = $2  # get studetn name (col 2)
+	sum = 0    # initialize sum of grades for this student
+	
+	# loop through all grade columns (starting from col 3)
+	for (i = 3; i <= NF; i++) {
+		sum += $i  # add each grade to sum
+	}
+
+	total[name] = sum    # store total in associative array
+	count[name] = NF - 2   # store number of subjects for this student
+
+	# update max score and corresponding student name
+        if (max_score == "" || sum > max_score) {
+		max_score = sum
+		max_student = name
+	}
+
+	# update min score and corresponding student name
+	if (min_score == "" || sum < min_score) {
+		min_score = sum
+		min_student = name
+	}
+}
+
+# function to calculate average score
+function avg(total, n) {
+	return total / n
+}
+
+# executed after processing all input lines
+END{
+	# iterate over all students in the total[] array
+       for (student in total) {
+	       a = avg(total[student], count[student]) # calculate average score
+
+	       # determine pass/fail status
+	       if (a >= 70) {
+		       status = "Pass"
+		} else {
+			status = "Fail"
+		}
+
+		# print student information
+	  	printf "%s: Total=%d, Average=%.2f, Status=%s\n", student, total[student], a, status
+	     }
+
+	     # print top and lowest scoring students
+	     printf "Top student: %s with score %d\n", max_student, max_score
+	     printf "Lowest student: %s with score %d\n", min_student, min_score
+     	}	     
+]0;chih_liu@instance-20250602-164944: ~/cs131/a3[01;32mchih_liu@instance-20250602-164944[00m:[01;34m~/cs131/a3[00m$ cat a3.txy[Kt
+# a3.txt
+#data file (grades.csv)
+StudentID,Name,CS146,CS131,CS100W
+101,Alice,85,90,78
+102,Bob,76,82,88
+103,Charlie,90,85,95
+104,David,65,70,60
+105,Eve,88,92,85
+
+# --------------------------------------------
+# output of grader.awk
+David: Total=195, Average=65.00, Status=Fail
+Eve: Total=265, Average=88.33, Status=Pass
+Bob: Total=246, Average=82.00, Status=Pass
+Charlie: Total=270, Average=90.00, Status=Pass
+Alice: Total=253, Average=84.33, Status=Pass
+Top student: Charlie with score 270
+Lowest student: David with score 195
+]0;chih_liu@instance-20250602-164944: ~/cs131/a3[01;32mchih_liu@instance-20250602-164944[00m:[01;34m~/cs131/a3[00m$ awl[Kk -f grader.awk grades.csv
+David: Total=195, Average=65.00, Status=Fail
+Eve: Total=265, Average=88.33, Status=Pass
+Bob: Total=246, Average=82.00, Status=Pass
+Charlie: Total=270, Average=90.00, Status=Pass
+Alice: Total=253, Average=84.33, Status=Pass
+Top student: Charlie with score 270
+Lowest student: David with score 195
+]0;chih_liu@instance-20250602-164944: ~/cs131/a3[01;32mchih_liu@instance-20250602-164944[00m:[01;34m~/cs131/a3[00m$ exit
+exit
+
+Script done on 2025-07-12 00:47:09+00:00 [COMMAND_EXIT_CODE="0"]

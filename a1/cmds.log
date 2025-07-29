@@ -1,0 +1,17 @@
+# Question 1: What is your home directory path?
+echo $HOME
+
+# Question 2: Which files in /proc contain memory and CPU info?
+ls /proc | grep mem
+ls /proc | grep cpu
+
+# Question 3: OS version info file in /etc
+ls /etc | grep release
+cat /etc/os-release
+
+# Question 4:
+A. Top 3 pickup location IDs on 2019-04-02
+grep '^2019-04-02' 2019-04.csv | cut -d',' -f8 | sort | uniq -c | sort -nr | head -3
+
+B. Top 3 pickup location IDs on 2019-04-10
+grep '^2019-04-10' 2019-04.csv | cut -d',' -f8 | sort | uniq -c | sort -nr | head -3

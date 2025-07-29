@@ -1,0 +1,23 @@
+# Question 1
+/home/chih_liu
+
+# Question 2
+meminfo
+...
+cpuinfo
+
+# Question 3
+os-release
+...
+PRETTY_NAME="Ubuntu 20.04.6 LTS"
+
+# Question 4:
+A.
+  5103 237
+  4892 161
+  4701 132
+
+B.
+  4981 236
+  4679 132
+  4450 237
